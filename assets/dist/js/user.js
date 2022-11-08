@@ -371,6 +371,9 @@ function getUserToEdit() {
         $("#telephone").val(response[0]["telephone"]);
         $("#adresse").val(response[0]["adresse"]);
         $("#trigramme").val(response[0]["trigramme"]);
+        var nom =
+          response[0]["user"]["nom"] + " " + response[0]["user"]["prenom"];
+        $("#nom_edit").text(nom);
         if (response[0]["user"]["group"] == "Agent secteur") {
           $("#as").empty();
           $("#as").css("display", "none");
