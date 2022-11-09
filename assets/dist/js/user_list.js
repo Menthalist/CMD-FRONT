@@ -3,6 +3,9 @@
 var pg = "";
 var i = 1;
 var max = 0;
+var k = 0;
+var next = "";
+var prev = "";
 
 function getAllUsers() {
   var content = "";
@@ -18,7 +21,9 @@ function getAllUsers() {
       var classe = "";
       var societe = "";
       var i = 1;
-      max_ = Math.round(parseInt(response["count"]) / 10);
+      max_ = Math.round(parseInt(response["count"]) / 10) + 1;
+      next = response["next"];
+      prev = response["previous"];
       $("#total").text(max_);
       $("#contentTableUser").empty();
       response["results"].forEach((elt) => {
@@ -76,7 +81,7 @@ function getAllUsers() {
                         <td>\
                             <span class="' +
             classe +
-            '" style=" cursor: pointer; text-decoration: underline;border-radius: 4px;" >' +
+            '" >' +
             cas_ +
             "</span>\
                         </td>\
@@ -104,35 +109,59 @@ function getAllUsers() {
   });
 }
 $("#next").on("click", function () {
-  i = i + 1;
-  getNext();
-  $("#actuel").text("");
-  $("#actuel").text(i);
-  return;
-});
-$("#prev").on("click", function () {
-  var usr = "";
-  if (i == 2) {
-    usr = base_local + "/admin_app/users/";
-    getPrev(usr);
+  if (next === null) {
+    alert("Dernière page");
     return;
-  } else if (i == 1) {
-    $("#actuel").text("");
-    $("#actuel").text(i);
-  } else if (i < 1) {
-    i = 1;
-    return;
+  }
+  v = next.split("?")[1];
+  if (cas_user == 1) {
+    url = filtre_url_user + "?" + v;
   } else {
-    i = i - 1;
-    usr = base_local + "/admin_app/users/?page=" + i.toString();
-    getPrev(usr);
+    url = user_all + "?" + v;
+  }
+  if (k <= max_) {
+    k = k + 1;
+    code(url);
     $("#actuel").text("");
-    $("#actuel").text(i);
+    $("#actuel").text(k);
+  } else if (k == max_) {
+    code(url);
+    $("#actuel").text("");
+    $("#actuel").text(k);
+  } else {
+    alert("Dernière page");
     return;
   }
 });
+$("#prev").on("click", function () {
+  if (prev === null) {
+    alert("Dernière page");
+    return;
+  }
+  v = prev.split("?")[1];
+  if (cas_user == 1) {
+    url = filtre_url_user + "?" + v;
+  } else {
+    url = user_all + "?" + v;
+  }
+  if (k == 0) {
+    alert("Première page");
+  }
+  if (k < max_ && k > 0) {
+    k = k - 1;
+    code(url);
+    $("#actuel").text("");
+    $("#actuel").text(k);
+  }
+  if (k == max_) {
+    k = k - 1;
+    code(url);
+    $("#actuel").text("");
+    $("#actuel").text(k);
+  }
+});
 
-function getPrev(url_) {
+/*function getPrev(url_) {
   code(url_);
 }
 
@@ -144,7 +173,7 @@ function getNext() {
     alert("Dernière page");
     return;
   }
-}
+}*/
 
 function code(url_) {
   $.ajax({
@@ -159,6 +188,9 @@ function code(url_) {
       var classe = "";
       var societe = "";
       var i = 1;
+      max_ = Math.round(parseInt(response["count"]) / 10) + 1;
+      next = response["next"];
+      prev = response["previous"];
       response["results"].forEach((elt) => {
         var id_toget = 0;
         if (elt["groups"][0]["group"] == "Administrateur") {
@@ -193,34 +225,34 @@ function code(url_) {
 
         $("#contentTableUser").append(
           "<tr>\
-                        <td>" +
+             <td>" +
             i +
             "</td>\
-                        <td>" +
+             <td>" +
             elt["first_name"] +
             " " +
             elt["last_name"] +
             "</td>\
-                        <td>" +
+             <td>" +
             elt["email"] +
             '</td>\
-                        <td class="text-center">\
-                            <span class="badge badge-success">' +
+              <td class="text-center">\
+              <span class="badge badge-success">' +
             elt["groups"][0]["group"] +
             "</span>\
-                        </td>\
-                        <td>" +
+              </td>\
+              <td>" +
             societe +
             '</td>\
-                        <td>\
-                            <span class="' +
+              <td>\
+                  <span class="' +
             classe +
-            '" style=" cursor: pointer; text-decoration: underline;border-radius: 4px;" >' +
+            '" >' +
             cas_ +
             "</span>\
-                        </td>\
-                        <td>\
-            <a  onclick='goWhereEdit(" +
+              </td>\
+              <td>\
+              <a  onclick='goWhereEdit(" +
             id_toget +
             ',"' +
             elt["groups"][0]["group"] +
@@ -231,8 +263,8 @@ function code(url_) {
             elt["groups"][0]["group"] +
             '"' +
             ')\' ><i class="bi bi-eye" style="color: rgb(136, 102, 119)"></i></a>\
-                        </td>\
-                    </tr>'
+                          </td>\
+                      </tr>'
         );
         i++;
       });

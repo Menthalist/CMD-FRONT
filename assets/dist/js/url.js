@@ -2,8 +2,9 @@ var toEdit = 0;
 var Edition = 0;
 var base_online = "http://127.0.0.1:8000";
 var base_local = "http://195.15.218.172";
-var route_file = base_local+"/cmd/file/"
-var cas_rdv = "rdv"
+var route_file = base_local + "/cmd/file/";
+var cas_rdv = "rdv";
+var cas_user = "user";
 const asurl_not_paginated = base_local + "/agent_app/agent/?paginated=t";
 const asurl_paginated = base_local + "/agent_app/agent/";
 const client_add = base_local + "/client_app/client/";
@@ -18,6 +19,7 @@ const intervention = base_local + "/config_app/intervention/?paginated=t";
 const propriete = base_local + "/config_app/propriete/?paginated=t";
 const user_all = base_local + "/admin_app/users/";
 const tri_url = base_local + "/rdv_app/rdv/tri/";
+const filtre_url_user = base_local + "/manager_app/user/tri/";
 const rdv_add = base_local + "/rdv_app/rdv/";
 const rdv_add_not_paginated = base_local + "/rdv_app/rdv/?paginated=t";
 const stat_url = base_local + "/manager_app/states/";

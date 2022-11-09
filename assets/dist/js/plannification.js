@@ -1,5 +1,5 @@
-var next = ""
-var prev = ""
+var next = "";
+var prev = "";
 function getAgentManage(as, ap) {
   var content = "";
   $.ajax({
@@ -10,8 +10,7 @@ function getAgentManage(as, ap) {
     },
     success: function (response) {
       //console.log(response)
-      content =
-        "<option value='0'></option>";
+      content = "<option value='0'></option>";
       response.forEach((elt) => {
         content =
           content +
@@ -27,7 +26,7 @@ function getAgentManage(as, ap) {
       $("#planneur_select").empty();
       $("#planneur_select").append(
         " <label for='planneur'>Planneur</label>\
-                <select   class='form-select form-control form-select-lg' id='planneur_val'> " +
+                <select   class='form-select form-control form-select-sm' id='planneur_val' > " +
           content +
           "</select>"
       );
@@ -35,7 +34,7 @@ function getAgentManage(as, ap) {
       $("#passeur_select").empty();
       $("#passeur_select").append(
         " <label for='exampleInputEmail1'>Agent de secteur</label>\
-                <select class='form-select form-control form-select-lg' id='constat_val'> " +
+                <select class='form-select form-control form-select-sm' id='constat_val'> " +
           content +
           "</select>"
       );
@@ -197,33 +196,35 @@ function getRdvToEditP() {
       getCommentaires();
       getFiles();
       $("#statut").val(parseInt(response[0]["statut"]).toString()).change();
-      if (  $.cookie("group") == "Client pro" ||$.cookie("group") == "Client particulier" || $.cookie("group") == "Salarie")
-       {
-	 $("#piedDate").css("display", "none");
+      if (
+        $.cookie("group") == "Client pro" ||
+        $.cookie("group") == "Client particulier" ||
+        $.cookie("group") == "Salarie"
+      ) {
+        $("#piedDate").css("display", "none");
         $("#statut").prop("disabled", true);
         if (parseInt(response[0]["statut"]) != 1) {
           $("#pied").css("display", "none");
           $("#piedDate").css("display", "none");
-	  $("#hor_nav").css("display", "none");
+          $("#hor_nav").css("display", "none");
           $("#affect_nav").css("display", "none");
           $("#val_nav").css("display", "none");
-	  $("#horaire").css("display", "none");
+          $("#horaire").css("display", "none");
           $("#affectation").attr("style", "display:none;");
           $("#validation").attr("style", "display:none;");
           $("#btnPlanneur").css("display", "none");
-	  $('#commentaire').addClass('show active');
+          $("#commentaire").addClass("show active");
           $("#statut").prop("disabled", true);
-	}
+        }
       } else {
         $("#pied").css("display", "inline");
         $("#piedDate").css("display", "inline");
         $("#btnPlanneur").css("display", "inline");
-	$("#hor_nav").css("display", "inline");
+        $("#hor_nav").css("display", "inline");
         $("#affect_nav").css("display", "inline");
         $("#val_nav").css("display", "inline");
-	$("#affectation").removeAttr("style");
+        $("#affectation").removeAttr("style");
         $("#validation").removeAttr("style");
-
       }
     },
     error: function (response) {
@@ -350,8 +351,8 @@ function getFiles() {
         m += 1; // JavaScript months are 0-11
         var y = formattedDate.getFullYear();
         var name = elt["route"].split("/");
-        var name_ = elt["route"]
-	final_ = name[name.length - 1];
+        var name_ = elt["route"];
+        final_ = name[name.length - 1];
         $("#contentTableFile").append(
           "<tr>\
                         <td></td>\
@@ -363,7 +364,12 @@ function getFiles() {
                         <td>" +
             elt["Type"] +
             "</td>\
-		<td> <a href='javascript:void(0);' onclick=downloadF('"+route_file+final_+"') > " +final_ + "</a></td>\
+		<td> <a href='javascript:void(0);' onclick=downloadF('" +
+            route_file +
+            final_ +
+            "') > " +
+            final_ +
+            "</a></td>\
 	<td>" +
             String(d).padStart(2, "0") +
             "/" +
@@ -380,11 +386,10 @@ function getFiles() {
       console.log(response);
     },
   });
-
 }
 
-function downloadF(str){
-   window.location.href = str;
+function downloadF(str) {
+  window.location.href = str;
   //alert('ok')
   return false;
 }
@@ -606,8 +611,8 @@ function getRdvC(pris_en_charge = 0) {
     success: function (response) {
       var i = 1;
       max_ = Math.round(parseInt(response["count"]) / 10) + 1;
-      next = response["next"]
-      prev = response["previous"]	    
+      next = response["next"];
+      prev = response["previous"];
       $("#total").text(max_);
       $("#contentTableRdv").empty();
       response["results"].forEach((elt) => {
