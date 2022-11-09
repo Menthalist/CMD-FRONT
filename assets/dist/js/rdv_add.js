@@ -57,7 +57,7 @@ function getClient(cas = 0, val_ = 1) {
         $("#client").empty();
         $("#client").append(
           " <label for='exampleInputEmail1'>Client</label>\
-                        <select onchange='getPasseur()' class='form-select form-control form-select-lg' id='client_val'> " +
+                        <select onchange='getPasseur()' class='form-select form-control form-select-sm' id='client_val'> " +
             content +
             "</select>"
         );
@@ -65,7 +65,7 @@ function getClient(cas = 0, val_ = 1) {
           $("#client").empty();
           $("#client").append(
             " <label for='exampleInputEmail1'>Client</label>\
-                        <select disabled='' class='form-select form-control form-select-lg' id='client_val'> " +
+                        <select disabled='' class='form-select form-control form-select-sm' id='client_val'> " +
               content +
               "</select>"
           );
@@ -75,7 +75,7 @@ function getClient(cas = 0, val_ = 1) {
           $("#client").empty();
           $("#client").append(
             " <label for='exampleInputEmail1'>Client</label>\
-                        <select disabled='' class='form-select form-control form-select-lg' id='client_val'> " +
+                        <select disabled='' class='form-select form-control form-select-sm' id='client_val'> " +
               content +
               "</select>"
           );
@@ -102,8 +102,8 @@ function getClient(cas = 0, val_ = 1) {
   }
 }
 
-function getPasseur(cas = 0,add=0) {
-  var id_client = $('#client_val').val();
+function getPasseur(cas = 0, add = 0) {
+  var id_client = $("#client_val").val();
   if (
     $.cookie("group") == "Client pro" ||
     $.cookie("group") == "Client particulier"
@@ -119,7 +119,7 @@ function getPasseur(cas = 0,add=0) {
         content +
         "'/>"
     );
-    return
+    return;
   }
   $.ajax({
     type: "GET",
@@ -145,7 +145,7 @@ function getPasseur(cas = 0,add=0) {
       $("#passeur").empty();
       $("#passeur").append(
         " <label for='exampleInputEmail1'>Passeur</label>\
-                    <select  class='form-select form-control form-select-lg' id='passeur_val'> " +
+                    <select  class='form-select form-control form-select-sm' id='passeur_val'> " +
           content +
           "</select>"
       );
@@ -153,7 +153,7 @@ function getPasseur(cas = 0,add=0) {
         $("#passeur").empty();
         $("#passeur").append(
           " <label for='exampleInputEmail1'>Passeur</label>\
-                    <select class='form-select form-control form-select-lg' id='passeur_val'> " +
+                    <select class='form-select form-control form-select-sm' id='passeur_val'> " +
             content +
             "</select>"
         );
@@ -164,10 +164,10 @@ function getPasseur(cas = 0,add=0) {
       console.log(response);
     },
   });
-  if(add != 0){
-    url3 = client_add
-    url3 = url3+id_client.toString()
-    url3 = url3+"?specific=t"
+  if (add != 0) {
+    url3 = client_add;
+    url3 = url3 + id_client.toString();
+    url3 = url3 + "?specific=t";
     $.ajax({
       type: "GET",
       url: url3,
@@ -175,18 +175,23 @@ function getPasseur(cas = 0,add=0) {
         Authorization: "Bearer " + token,
       },
       success: function (response) {
-        
-        $("#agent_val").val(response[0]['info_concession']['agent_rattache']['user']).change();
+        $("#agent_val")
+          .val(response[0]["info_concession"]["agent_rattache"]["user"])
+          .change();
       },
       error: function (response) {
-        alert("Echec de récupération de l'agent référent selectionnez le manuellement")
+        alert(
+          "Echec de récupération de l'agent référent selectionnez le manuellement"
+        );
       },
     });
   }
-
 }
 function getAgent(cas = 1, val_ = 0) {
-  if ($.cookie("group") == "Administrateur" || $.cookie("group") == "Audit planneur") {
+  if (
+    $.cookie("group") == "Administrateur" ||
+    $.cookie("group") == "Audit planneur"
+  ) {
     $.ajax({
       type: "GET",
       url: asurl_not_paginated,
@@ -211,7 +216,7 @@ function getAgent(cas = 1, val_ = 0) {
           $("#agent").empty();
           $("#agent").append(
             " <label for='exampleInputEmail1'>Agent de secteur</label>\
-                        <select disabled=''  class='form-select form-control form-select-lg' id='as_val'> " +
+                        <select disabled=''  class='form-select form-control form-select-sm' id='as_val'> " +
               content +
               "</select>"
           );
@@ -219,7 +224,7 @@ function getAgent(cas = 1, val_ = 0) {
           $("#agent").empty();
           $("#agent").append(
             " <label for='exampleInputEmail1'>Agent de secteur</label>\
-                        <select class='form-select form-control form-select-lg' id='agent_val'> " +
+                        <select class='form-select form-control form-select-sm' id='agent_val'> " +
               content +
               "</select>"
           );
@@ -228,7 +233,7 @@ function getAgent(cas = 1, val_ = 0) {
           $("#agent").empty();
           $("#agent").append(
             " <label for='exampleInputEmail1'>Agent de secteur</label>\
-                        <select disabled=''  class='form-select form-control form-select-lg' id='agent_val'> " +
+                        <select disabled=''  class='form-select form-control form-select-sm' id='agent_val'> " +
               content +
               "</select>"
           );
@@ -277,8 +282,14 @@ function getInterventionandPropriete(cas = 1, val_ = 0, val1 = 0) {
     success: function (response) {
       content = "<option value='0'>SELECTIONNER</option>";
       response.forEach((elt) => {
-        if(parseInt(elt['statut']) == 1){
-          content =content +"<option value = " +elt["id"] +">" +elt["type"] +"</option>";
+        if (parseInt(elt["statut"]) == 1) {
+          content =
+            content +
+            "<option value = " +
+            elt["id"] +
+            ">" +
+            elt["type"] +
+            "</option>";
         }
       });
       $("#intervention").empty();
@@ -305,8 +316,14 @@ function getInterventionandPropriete(cas = 1, val_ = 0, val1 = 0) {
     success: function (response) {
       content = "<option value='0'>SELECTIONNER</option>";
       response.forEach((elt) => {
-     	if(parseInt(elt['statut']) == 1){
-          content =content +"<option value = " +elt["id"] +">" +elt["type"] +"</option>";
+        if (parseInt(elt["statut"]) == 1) {
+          content =
+            content +
+            "<option value = " +
+            elt["id"] +
+            ">" +
+            elt["type"] +
+            "</option>";
         }
       });
       $("#propriete").empty();
@@ -379,7 +396,10 @@ function addRdv() {
   ) {
     data["agent"] = $.cookie("id_logged_user_user");
   }
-  if ($.cookie("group") == "Administrateur" || $.cookie("group") == "Audit planneur") {
+  if (
+    $.cookie("group") == "Administrateur" ||
+    $.cookie("group") == "Audit planneur"
+  ) {
     data["agent"] = $("#agent_val").val();
   }
   if (
@@ -453,20 +473,22 @@ function getRdvToEdit() {
       $("#telephone_locataire").val(
         response[0]["propriete"]["locataire"]["telephone"]
       );
-      $("#surface_propriete").val(response[0]["propriete"]["surface"]);
+      $("#surface_propriete").val(
+        parseInt(response[0]["propriete"]["surface"])
+      );
       $("#numero_propriete").val(response[0]["propriete"]["numero"]);
       $("#numero_parking_propriete").val(
-        response[0]["propriete"]["numeroParking"]
-      );
-      $("#adresse_propriete").val(response[0]["propriete"]["adresse"]);
-      $("#code_postal_propriete").val(response[0]["propriete"]["codePostal"]);
+        parseInt(response[0]["propriete"]["numeroParking"]
+      ));
+      $("#adresse_propriete").val(parseInt(response[0]["propriete"]["adresse"]);
+      $("#code_postal_propriete").val(parseInt(response[0]["propriete"]["codePostal"]);
       $("#ville_propriete").val(response[0]["propriete"]["ville"]);
       $("#adresse_complementaire_propriete").val(
         response[0]["propriete"]["adresseComplementaire"]
       );
       $("#numero_cave_propriete").val(response[0]["propriete"]["numeroCave"]);
       $("#numero_sol_propriete").val(response[0]["propriete"]["numeroSol"]);
-      $("#ref_lot").val(response[0]["ref_lot"]);
+      $("#ref_lot").val(parseInt(response[0]["ref_lot"]));
       var formattedDate = new Date(response[0]["date"])
         .toISOString()
         .split("T")[0];
@@ -488,9 +510,9 @@ function getRdvToEdit() {
         getClient(response[0]["client"]["user"]["id"], (val_ = 1));
       }
       if (response[0]["passeur"] != null) {
-        getPasseur((cas = response[0]["passeur"][0]["user"]["id"]),add=1);
+        getPasseur((cas = response[0]["passeur"][0]["user"]["id"]), (add = 1));
       } else {
-        getPasseur((cas = 0),add=1);
+        getPasseur((cas = 0), (add = 1));
       }
       if (response[0]["agent"] != null) {
         getAgent((cas = 1), (val_ = response[0]["agent"]["user"]["id"]));
@@ -563,12 +585,16 @@ function getRdvToEdit() {
         $("#param_link").empty();
         $("#param_link").css("display", "none");
       }
-	    if ( $.cookie("group") == "Client pro" || $.cookie("group") == "Client particulier" || $.cookie("group")=="Salarie") {
-                $("#statut").prop("disabled", true);
-                if (parseInt(response[0]["statut"]) != 1) {
-                  $("#pied").css("display", "none");
-                }
-            }
+      if (
+        $.cookie("group") == "Client pro" ||
+        $.cookie("group") == "Client particulier" ||
+        $.cookie("group") == "Salarie"
+      ) {
+        $("#statut").prop("disabled", true);
+        if (parseInt(response[0]["statut"]) != 1) {
+          $("#pied").css("display", "none");
+        }
+      }
     },
     error: function (response) {
       console.log(response);

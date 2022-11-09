@@ -267,23 +267,13 @@
                     <div class="card-header">
 
                       <div class="row">
-                        <div class="col-2 form-group" >
-                          <label for="ref_edl">Statut</label>
-                          <select class="form-control" name="role" id="role">
-                            <option value="0">Role</option>
-                            <option value="administrateur">Administrateur</option>
-                            <option value="Agent secteur">Agent secteur</option>
-                            <option value="Agent constat">Agent Constat</option>
-                            <option value="Audit planneur">Audit planneur</option>
-                            <option value="Client pro">Client Pro</option>
-                            <option value="Client particulier">Client particulier</option>
-                            <option value="Salarie">Salarié </option>
-                          </select>
+                        <div class="col-2 form-group" id="role_list" >
+                          
                         </div>
                         <div class="col-2 form-group" id="role_group"  style="display: inline;">
                           <label for="ref_edl">Etat</label>
                           <select class="form-control" name="etat" id="etat">
-                            <option value="-1">**************</option>
+                            <option value="-1">SELECTIONNER</option>
                             <option value="1">Actif</option>
                             <option value="0">Inactif</option>
                           </select>
@@ -306,7 +296,7 @@
                       </div>
                     </div>
                     <div class="card-body">
-                      <table class="table table-striped text-nowrap">
+                      <table class="table table-striped">
                         <thead>
                           <tr>
                             <th></th>
@@ -396,10 +386,11 @@
     <script src="assets/dist/js/url.js" ></script>
     <script src="assets/dist/js/user.js" ></script>
     <script src="assets/dist/js/user_list.js" ></script>
+    <script src="assets/dist/js/filtre_users.js" ></script>
     <script src="assets/dist/js/event_user.js" ></script>
     <script>
       checkLoged()
-      //loadNav()
+      onload()
       getAllUsers();
       window.onload = function(){
         loadNav()
