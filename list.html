@@ -279,14 +279,15 @@
                           </select>
                         
                       </div>
-                      <div class="col-2 form-group" id="role_group">
-                        <label for="ref_edl">Recherche </label>
-                          <input type="text" name="table_search" class="form-control " placeholder="Recherche" id="filtre"/>
-                      </div>
+
                       <div class=" col-2 form-group" >
+                        <br>
                         <a href="#" class="btn btn-primary" id="find"> Rechercher</a>
                       </div>
-
+                      <div class="col-4 form-group" id="role_group">
+                        <label for="ref_edl">Recherche libre (à la saisie) </label>
+                          <input type="text" name="table_search" class="form-control " placeholder="Recherche" id="filtre"/>
+                      </div>
                       </div>
                       
 
@@ -390,10 +391,11 @@
     <script src="assets/dist/js/event_user.js" ></script>
     <script>
       checkLoged()
+      loadNav()
       onload()
       getAllUsers();
       window.onload = function(){
-        loadNav()
+        //loadNav()
       }
 
     </script>

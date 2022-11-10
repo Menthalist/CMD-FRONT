@@ -476,7 +476,7 @@
                         <div class="form-group" id="users_add">
                           <label for="exampleInputEmail1">Role</label
                           ><select class="form-control undefined" name="role" id="type_user">
-                            <option value="1">Administrateur</option>
+                            <option value="1" id="admin_role">Administrateur</option>
                             <option value="2">Agent Secteur</option>
                             <option value="3">Agent Constat</option>
                             <option value="4">Audit Planner</option>
@@ -525,8 +525,10 @@
     <script  src="assets/dist/js/event_user.js" ></script>
     <script>
       checkLoged()
+      loadNav()
+      onload()
       window.onload = function(){
-        loadNav()
+        //loadNav()
       }
     </script>
   </body>
