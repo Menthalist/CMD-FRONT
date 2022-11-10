@@ -523,7 +523,9 @@ function getUserToEdit() {
         $("#fonction").val(response[0]["fonction"]);
         $("#mobile").val(response[0]["mobile"]);
         $("#code").val(response[0]["code"]);
-        $("#company").val(response[0]["compani"]);
+        if (response[0]["client"] != null) {
+          $("#company").val(response[0]["client"]["societe"]);
+        }
         getClient(1, response[0]["client"]["id"]);
         $("#sal_bloc2").css("display", "inline");
         $("#sal_bloc3").css("display", "inline");
@@ -718,3 +720,14 @@ $("#goEdit").on("click", function () {
 $("#LeaveEdit").on("click", function () {
   window.location.replace("list.html");
 });
+function onload() {
+  if (
+    $.cookie("group") == "Audit planneur" ||
+    $.cookie("group") == "Agent secteur" ||
+    $.cookie("group") == "Agent constat" ||
+    $.cookie("group") == "Client pro" ||
+    $.cookie("group") == "Client particulier"
+  ) {
+    $("#admin_role").remove();
+  }
+}

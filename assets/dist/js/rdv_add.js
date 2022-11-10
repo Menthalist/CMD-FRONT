@@ -46,13 +46,13 @@ function getClient(cas = 0, val_ = 1) {
             content +
             "<option value = " +
             elt["user"]["id"] +
-            ">" +
+            "><strong>" +
             elt["societe"] +
-            " " +
+            "</strong> <i>" +
             elt["user"]["nom"] +
-            " --- " +
+            "  " +
             elt["user"]["prenom"] +
-            "</option>";
+            "</i></option>";
         });
         $("#client").empty();
         $("#client").append(
@@ -478,10 +478,14 @@ function getRdvToEdit() {
       );
       $("#numero_propriete").val(response[0]["propriete"]["numero"]);
       $("#numero_parking_propriete").val(
-        parseInt(response[0]["propriete"]["numeroParking"]
-      ));
-      $("#adresse_propriete").val(parseInt(response[0]["propriete"]["adresse"]);
-      $("#code_postal_propriete").val(parseInt(response[0]["propriete"]["codePostal"]);
+        parseInt(response[0]["propriete"]["numeroParking"])
+      );
+      $("#adresse_propriete").val(
+        parseInt(response[0]["propriete"]["adresse"])
+      );
+      $("#code_postal_propriete").val(
+        parseInt(response[0]["propriete"]["codePostal"])
+      );
       $("#ville_propriete").val(response[0]["propriete"]["ville"]);
       $("#adresse_complementaire_propriete").val(
         response[0]["propriete"]["adresseComplementaire"]
